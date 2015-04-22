@@ -1,10 +1,11 @@
 Res = require('./resource').res
+TouchSprite = require('./touchSprite')
 
 AppLayer = cc.Layer.extend
   ctor : ->
     @_super()
     size = cc.winSize
-    sprite = new cc.Sprite Res.testImage
+    sprite = new TouchSprite Res.testImage
     sprite.x = size.width / 2
     sprite.y = size.height / 2
     @addChild sprite
