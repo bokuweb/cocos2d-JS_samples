@@ -1,21 +1,18 @@
 Res = require('./resource').res
 
-Layer = cc.Layer.extend
-  sprite : null
+AppLayer = cc.Layer.extend
   ctor : ->
     @_super()
     size = cc.winSize
-    emitter = new cc.ParticleSystem Res.texturePlist 
-    emitter.x = size.width / 2
-    emitter.y = size.height / 2
-    batch = new cc.ParticleBatchNode emitter.texture
-    batch.addChild emitter
-    @addChild batch, 10
+    sprite = new cc.Sprite Res.testImage
+    sprite.x = size.width / 2
+    sprite.y = size.height / 2
+    @addChild sprite
 
 AppScene = cc.Scene.extend
   onEnter:->
     @_super()
-    layer = new Layer()
+    layer = new AppLayer()
     @addChild layer
 
 module.exports = AppScene
