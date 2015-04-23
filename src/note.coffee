@@ -2,18 +2,24 @@ TouchSprite = require './touchSprite'
 
 Note = TouchSprite.extend
 
-  ctor : (texture, @_timing, @_dest, @_speed, @_timer)->
+  ctor : (texture, @_params, @_timer)->
     @_super texture
+    @_listeners = []
 
   start : ->
     @scheduleUpdate()
 
+  addListener: (name, callback)->
+    @_listeners.push
+      name: name
+      callback: callback
+
   update : ->
     currentTime = @_timer.get()
-    if currentTime >= @_timing
-      @y = @_dest
+    if currentTime >= @_params.timing
+      @y = @_params.destY
     else
-      @y = @_dest + (@_timing - currentTime) * @_speed
+      @y = @_params.destY + (@_params.timing - currentTime) * @_params.speed
 
   onTouchBegan : (touch, event)->
     return unless @_super touch, event
@@ -28,6 +34,24 @@ Note = TouchSprite.extend
       cc.CallFunc.create cb, this
     )
     @runAction seq
+    @_judge()
+
+  _judge : ->
+    currentTime = @_timer.get()
+    diffTime = currentTime - @_params.timing
+    great = @_params.threshold.great
+    good = @_params.threshold.good
+    if -great < diffTime < great
+      @_trigger 'great'
+    else if -good < diffTime < good
+      @_trigger 'good'
+    else
+      @_trigger 'bad'
+
+  _trigger: (name, data)->
+    for listener in @_listeners when listener.name is name
+      listener.callback name, data
+    return
 
   onTouchMoved : (touch, event)->
 

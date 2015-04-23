@@ -1,10 +1,9 @@
-Timer = require('./timer')
-Note  = require('./note')
-res   = require('./resource').res
+Timer  = require('./timer')
+Note   = require('./note')
+params = require('./params')
+res    = require('./resource').res
 
 AppLayer = cc.Layer.extend
-  DESTY : 100
-  SPEED : 100
   ctor : ->
     @_super()
     @_timer = new Timer()
@@ -13,17 +12,26 @@ AppLayer = cc.Layer.extend
     @_timer.start()
     size = cc.director.getWinSize()
 
-    for v in noteParams
-      note = new Note res.testImage, v.timing, @DESTY, @SPEED, @_timer
+    for v in params.note
+      note = new Note(
+        res.testImage
+        {
+          timing    : v.timing
+          destY     : params.destY
+          speed     : params.speed
+          threshold : params.threshold
+        }
+        @_timer
+      )
       note.attr
         x : v.key * 100 + 10
-        y : -size.height
+        y : size.height + note.height
       @addChild note
       @_notes.push note
     @scheduleUpdate()
 
   update : ->
-    timing = noteParams[@_notesIndex]?.timing
+    timing = params.note[@_notesIndex]?.timing
     currentTime = @_timer.get()
     if timing - 3 < currentTime
       @_notes[@_notesIndex++].start()
@@ -33,13 +41,5 @@ AppScene = cc.Scene.extend
     @_super()
     layer = new AppLayer()
     @addChild layer
-
-noteParams = [
-  {timing : 1, key : 0}
-  {timing : 2, key : 1}
-  {timing : 3, key : 2}
-  {timing : 4, key : 3}
-  {timing : 5, key : 4}  
-]
 
 module.exports = AppScene
