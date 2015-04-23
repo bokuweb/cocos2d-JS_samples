@@ -8,11 +8,7 @@ AppLayer = cc.Layer.extend
     @_sprite.x = size.width / 2
     @_sprite.y = size.height / 2
     @addChild @_sprite
-    @scheduleOnce @_move, 1
-
-  # 1秒後に1回よばれる
-  _move : ->
-    @_sprite.x += 100
+    @_sprite.runAction(cc.fadeTo(3, 0))
 
 AppScene = cc.Scene.extend
   onEnter:->
