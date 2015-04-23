@@ -9,12 +9,21 @@ AppLayer = cc.Layer.extend
     @_sprite.y = size.height / 2
     @addChild @_sprite
 
+    cb = ->
+      cc.log "callback!"
+      message = new cc.LabelTTF "callback", "Arial", 20
+      message.attr
+        x : size.width / 2
+        y : size.height / 2
+      @addChild message
+
     seq = cc.sequence(
-      cc.fadeTo 1, 0
-      cc.fadeTo 1, 255
+      cc.moveTo 2, 0, 0
+      cc.fadeTo 2, 0
+      cc.CallFunc.create cb, this
     )
 
-    @_sprite.runAction(new cc.RepeatForever(seq))
+    @_sprite.runAction seq
 
 AppScene = cc.Scene.extend
   onEnter:->
