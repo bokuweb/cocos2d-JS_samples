@@ -9,19 +9,10 @@ AppLayer = cc.Layer.extend
     @_sprite.y = size.height / 2
     @addChild @_sprite
 
-    cb = ->
-      cc.log "callback!"
-      message = new cc.LabelTTF "callback", "Arial", 20
-      message.attr
-        x : size.width / 2
-        y : size.height / 2
-      @addChild message
-
-    seq = cc.sequence(
-      cc.moveTo 2, 0, 0
-      cc.fadeTo 2, 0
-      cc.CallFunc.create cb, this
-    )
+    move = cc.moveBy 2, 100, 100
+    moveBack = move.reverse()
+    delay = cc.delayTime 0.1
+    seq = cc.sequence move, delay, moveBack, delay.clone()
 
     @_sprite.runAction seq
 
