@@ -10,9 +10,10 @@ AppLayer = cc.Layer.extend
     @addChild @_sprite
 
     move = cc.moveBy 2, 100, 100
-    moveBack = move.reverse()
+    moveEaseIn = move.clone().easing(cc.easeIn(2.0))
+    moveEaseInBack = moveEaseIn.reverse()
     delay = cc.delayTime 0.1
-    seq = cc.sequence move, delay, moveBack, delay.clone()
+    seq = cc.sequence moveEaseIn, delay, moveEaseInBack, delay.clone()
 
     @_sprite.runAction seq
 
