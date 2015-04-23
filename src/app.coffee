@@ -9,7 +9,7 @@ AppLayer = cc.Layer.extend
     @_sprite.y = size.height / 2
     @addChild @_sprite
     @_sprite.runAction(
-      cc.spawn(
+      cc.sequence(
         cc.tintTo 3, 255, 0, 0
         cc.moveTo 3, 0, 0
       )
