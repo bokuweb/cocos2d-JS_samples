@@ -8,7 +8,7 @@ AppLayer = cc.Layer.extend
     @_sprite.x = size.width / 2
     @_sprite.y = size.height / 2
     @addChild @_sprite
-    @_sprite.runAction(cc.rotateTo(3, 270))
+    @_sprite.runAction(cc.skewTo(3, 100, 100))
 
 AppScene = cc.Scene.extend
   onEnter:->
