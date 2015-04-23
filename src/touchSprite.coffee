@@ -4,9 +4,9 @@ TouchSprite = cc.Sprite.extend
     cc.eventManager.addListener
       event : cc.EventListener.TOUCH_ONE_BY_ONE
       swallowTouches : true
-      onTouchBegan : @onTouchBegan
-      onTouchMoved : @onTouchMoved
-      onTouchEnded : @onTouchEnded
+      onTouchBegan : @onTouchBegan.bind this
+      onTouchMoved : @onTouchMoved.bind this
+      onTouchEnded : @onTouchEnded.bind this
     , this
 
   onTouchBegan : (touch, event)->
@@ -16,7 +16,7 @@ TouchSprite = cc.Sprite.extend
     rect = cc.rect 0, 0, s.width, s.height
     if cc.rectContainsPoint rect, locationInNode
       cc.log "touch began!!"
-      return true
+      true
 
   onTouchMoved : (touch, event)->
     target = event.getCurrentTarget()

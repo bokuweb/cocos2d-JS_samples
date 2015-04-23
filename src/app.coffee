@@ -9,10 +9,10 @@ AppLayer = cc.Layer.extend
     @_timer.start()
 
     size = cc.director.getWinSize()
-    note = new Note res.testImage
+    note = new Note res.testImage, 3, 100, 100, @_timer
     note.attr
       x : size.width / 2
-      y : size.height
+      y : -size.height
     @addChild note
 
     note.start()
