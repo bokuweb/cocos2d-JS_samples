@@ -14,7 +14,7 @@ AppLayer = cc.Layer.extend
       cc.fadeTo 1, 255
     )
 
-    @_sprite.runAction seq.repeat(3)
+    @_sprite.runAction(new cc.RepeatForever(seq))
 
 AppScene = cc.Scene.extend
   onEnter:->
