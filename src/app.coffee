@@ -1,11 +1,20 @@
-LayerWithSwipe = require('./layerWithSwipe')
+Timer = require('./timer')
 
-AppLayer = LayerWithSwipe.extend
+AppLayer = cc.Layer.extend
   ctor : ->
-    @_super
-      x : 100
-      y : 100
-      dt : 0.2
+    @_super()
+    @_timer = new Timer()
+    @_timer.start()
+    @scheduleUpdate()
+    size = cc.director.getWinSize()
+    @_timerLabel = new cc.LabelTTF "0","Arial", 20
+    @_timerLabel.attr
+      x : size.width / 2
+      y : size.height / 2
+    @addChild @_timerLabel
+
+  update : ->
+    @_timerLabel.setString @_timer.get()
 
 AppScene = cc.Scene.extend
   onEnter:->
