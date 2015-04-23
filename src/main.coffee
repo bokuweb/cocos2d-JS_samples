@@ -2,7 +2,7 @@ res = require('./resource').res
 resources = require('./resource').resources
 
 cc.game.onStart = ->
-  HelloWorldScene = require './app'
+  AppScene = require './app'
   if not cc.sys.isNative and document.getElementById "cocosLoading"
     document.body.removeChild(document.getElementById "cocosLoading")
 
@@ -11,7 +11,7 @@ cc.game.onStart = ->
   cc.view.setDesignResolutionSize 800, 450, cc.ResolutionPolicy.SHOW_ALL
   cc.view.resizeWithBrowserSize on
   cc.LoaderScene.preload resources, ->
-    cc.director.runScene new HelloWorldScene()
+    cc.director.runScene new AppScene()
   , this
 
 cc.game.run()
