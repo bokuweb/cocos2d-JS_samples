@@ -27,7 +27,11 @@ AppLayer = cc.Layer.extend
         x : v.key * 100 + 10
         y : size.height + note.height
       @addChild note
+      note.addListener 'great', @_greatJudged.bind this
+      note.addListener 'good' , @_goodJudged.bind  this
+      note.addListener 'bad'  , @_badJudged.bind   this
       @_notes.push note
+
     @scheduleUpdate()
 
   update : ->
@@ -35,6 +39,15 @@ AppLayer = cc.Layer.extend
     currentTime = @_timer.get()
     if timing - 3 < currentTime
       @_notes[@_notesIndex++].start()
+
+  _greatJudged : ->
+    cc.log "great"
+
+  _goodJudged : ->
+    cc.log "good"
+
+  _badJudged : ->
+    cc.log "bad"
 
 AppScene = cc.Scene.extend
   onEnter:->

@@ -21,8 +21,19 @@ Note = TouchSprite.extend
     else
       @y = @_params.destY + (@_params.timing - currentTime) * @_params.speed
 
+    if currentTime >= @_params.timing + @_params.threshold.good
+      @_trigger 'bad'
+      @unscheduleUpdate()
+      cb =-> @removeFromParent on
+      seq = cc.sequence(
+        cc.fadeOut 0.2
+        cc.CallFunc.create cb, this
+      )
+      @runAction seq
+
   onTouchBegan : (touch, event)->
     return unless @_super touch, event
+    @_judge()
     @unscheduleUpdate()
     spawn = cc.spawn(
       cc.fadeOut 0.2
@@ -34,7 +45,6 @@ Note = TouchSprite.extend
       cc.CallFunc.create cb, this
     )
     @runAction seq
-    @_judge()
 
   _judge : ->
     currentTime = @_timer.get()
