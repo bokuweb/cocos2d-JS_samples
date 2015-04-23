@@ -8,8 +8,12 @@ AppLayer = cc.Layer.extend
     @_sprite.x = size.width / 2
     @_sprite.y = size.height / 2
     @addChild @_sprite
-    # cc.jumpTo(ジャンプ時間, 着地座標, ジャンプ高さ, ジャンプ回数)
-    @_sprite.runAction(cc.jumpTo(3, cc.p(@_sprite.x + 100, @_sprite.y), 100, 1))
+    controlPoints = [
+      cc.p 100, 100
+      cc.p 200, 200
+      cc.p 0,   0
+    ]
+    @_sprite.runAction(cc.bezierTo(3, controlPoints))
 
 AppScene = cc.Scene.extend
   onEnter:->
