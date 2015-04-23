@@ -8,12 +8,13 @@ AppLayer = cc.Layer.extend
     @_sprite.x = size.width / 2
     @_sprite.y = size.height / 2
     @addChild @_sprite
-    @_sprite.runAction(
-      cc.sequence(
-        cc.tintTo 3, 255, 0, 0
-        cc.moveTo 3, 0, 0
-      )
+
+    seq = cc.sequence(
+      cc.fadeTo 1, 0
+      cc.fadeTo 1, 255
     )
+
+    @_sprite.runAction seq.repeat(3)
 
 AppScene = cc.Scene.extend
   onEnter:->
