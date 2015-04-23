@@ -8,8 +8,7 @@ AppLayer = cc.Layer.extend
     @_sprite.x = size.width / 2
     @_sprite.y = size.height / 2
     @addChild @_sprite
-    # 3秒かけて5回点滅
-    @_sprite.runAction(cc.blink(3, 5))
+    @_sprite.runAction(cc.tintTo(3, 255, 0, 0))
 
 AppScene = cc.Scene.extend
   onEnter:->
