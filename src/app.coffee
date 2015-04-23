@@ -8,10 +8,11 @@ AppLayer = cc.Layer.extend
     @_sprite.x = size.width / 2
     @_sprite.y = size.height / 2
     @addChild @_sprite
-    @scheduleUpdate()
+    @schedule @_move, 1
 
-  update : ->
-    @_sprite.x += 1
+  # 1秒ごとに呼ばれる
+  _move : ->
+    @_sprite.x += 10
 
 AppScene = cc.Scene.extend
   onEnter:->
