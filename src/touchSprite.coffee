@@ -29,10 +29,4 @@ TouchSprite = cc.Sprite.extend
     target = event.getCurrentTarget()
     cc.log "touch ended!!"
 
-AppScene = cc.Scene.extend
-  onEnter:->
-    @_super()
-    layer = new AppLayer()
-    @addChild layer
-
 module.exports = TouchSprite

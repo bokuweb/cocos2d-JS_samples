@@ -1,14 +1,11 @@
-Res = require('./resource').res
-TouchSprite = require('./touchSprite')
+LayerWithSwipe = require('./layerWithSwipe')
 
-AppLayer = cc.Layer.extend
+AppLayer = LayerWithSwipe.extend
   ctor : ->
-    @_super()
-    size = cc.winSize
-    sprite = new TouchSprite Res.testImage
-    sprite.x = size.width / 2
-    sprite.y = size.height / 2
-    @addChild sprite
+    @_super
+      x : 100
+      y : 100
+      dt : 0.2
 
 AppScene = cc.Scene.extend
   onEnter:->
