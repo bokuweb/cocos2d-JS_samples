@@ -11,7 +11,6 @@ Layer = cc.Layer.extend
     , this
 
   onTouchBegan : (touch, event)->
-    @_count += 1
     target = event.getCurrentTarget()
     touchPoint = touch.getLocation()
     damage = new Damage()
