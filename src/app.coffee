@@ -1,7 +1,6 @@
-Layer = cc.Layer.extend
+Layer = cc.LayerColor.extend
   ctor : ->
-    @_super()
-    cc.log "add layer"
+    @_super cc.color(0,255,0), 200,200
 
 AppScene = cc.Scene.extend
   onEnter:->
