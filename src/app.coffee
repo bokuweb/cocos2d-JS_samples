@@ -6,7 +6,7 @@ Layer = cc.LayerColor.extend
     @scheduleOnce @_changeScene, 3
 
   _changeScene : ->
-    cc.director.runScene new Next()
+    cc.director.runScene new cc.TransitionFade(2, new Next())
 
 AppScene = cc.Scene.extend
   onEnter:->
