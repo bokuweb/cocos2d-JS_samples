@@ -12,15 +12,15 @@ Damage = cc.Layer.extend
         opacity : 0
         x : i * -32 + (32 * digits / 2)
       cb = -> @removeFromParent on
-      move = cc.moveBy 0.15, 0, 25
+      move = cc.moveBy 0.1, 0, 35
       seq = cc.sequence(
-        cc.delayTime((digits - i) * 0.10)
+        cc.delayTime((digits - i) * 0.05)
         cc.spawn(
-          cc.fadeIn 0.3
+          cc.fadeIn 0.2
           cc.sequence(move, move.reverse())
         )
-        cc.fadeOut 0.15
         cc.delayTime 0.3
+        cc.fadeOut 0.2
         cc.CallFunc.create cb, this
       )
       label.setString(~~(num % 10))
