@@ -1,16 +1,24 @@
-Res = require('./resource').res
+Damage = require('./damage')
 
 Layer = cc.Layer.extend
-  sprite : null
+
   ctor : ->
     @_super()
-    size = cc.winSize
-    emitter = new cc.ParticleSystem Res.texturePlist 
-    emitter.x = size.width / 2
-    emitter.y = size.height / 2
-    batch = new cc.ParticleBatchNode emitter.texture
-    batch.addChild emitter
-    @addChild batch, 10
+    cc.eventManager.addListener
+      event : cc.EventListener.TOUCH_ONE_BY_ONE
+      swallowTouches : true
+      onTouchBegan : @onTouchBegan.bind this
+    , this
+
+  onTouchBegan : (touch, event)->
+    @_count += 1
+    target = event.getCurrentTarget()
+    touchPoint = touch.getLocation()
+    damage = new Damage()
+    damage.x = touchPoint.x
+    damage.y = touchPoint.y
+    @addChild damage
+    damage.show Math.random() * 99999
 
 AppScene = cc.Scene.extend
   onEnter:->
