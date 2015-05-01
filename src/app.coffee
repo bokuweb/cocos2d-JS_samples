@@ -1,7 +1,7 @@
 Damage = require('./damage')
+Res = require('./resource').res
 
 Layer = cc.Layer.extend
-
   ctor : ->
     @_super()
     cc.eventManager.addListener
@@ -13,11 +13,12 @@ Layer = cc.Layer.extend
   onTouchBegan : (touch, event)->
     target = event.getCurrentTarget()
     touchPoint = touch.getLocation()
-    damage = new Damage()
-    damage.x = touchPoint.x
-    damage.y = touchPoint.y
-    @addChild damage
-    damage.show Math.random() * 99999
+    emitter = new cc.ParticleSystem Res.texturePlist 
+    emitter.x = touchPoint.x
+    emitter.y = touchPoint.y
+    batch = new cc.ParticleBatchNode emitter.texture
+    batch.addChild emitter
+    @addChild batch
 
 AppScene = cc.Scene.extend
   onEnter:->
