@@ -1,4 +1,3 @@
-Damage = require('./damage')
 Res = require('./resource').res
 
 Layer = cc.Layer.extend
@@ -16,9 +15,8 @@ Layer = cc.Layer.extend
     emitter = new cc.ParticleSystem Res.texturePlist 
     emitter.x = touchPoint.x
     emitter.y = touchPoint.y
-    batch = new cc.ParticleBatchNode emitter.texture
-    batch.addChild emitter
-    @addChild batch
+    emitter.scale = 0.7
+    @addChild emitter
 
 AppScene = cc.Scene.extend
   onEnter:->
