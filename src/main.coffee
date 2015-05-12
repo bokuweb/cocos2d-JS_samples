@@ -8,7 +8,8 @@ cc.game.onStart = ->
 
   cc.view.enableRetina off
   cc.view.adjustViewPort on
-  cc.view.setDesignResolutionSize 800, 450, cc.ResolutionPolicy.SHOW_ALL
+  cc.view.setDesignResolutionSize 320, 480, cc.ResolutionPolicy.SHOW_ALL
+  cc.director.setContentScaleFactor 2
   cc.view.resizeWithBrowserSize on
   cc.LoaderScene.preload resources, ->
     cc.director.runScene new AppScene()

@@ -2,12 +2,12 @@ Params  =
   keyNum : 5
   playTime : 100
   speed : 200
-  destY : 100
+  destY : 50
   threshold :
     great : 0.15
     good  : 0.3
-  noteMargin : 100
-  noteOffset : 10
+  margin : 60
+  offset : 35
   note : [
     {timing : 1, key : 0}
     {timing : 2, key : 1}

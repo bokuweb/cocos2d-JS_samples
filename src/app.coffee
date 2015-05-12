@@ -36,7 +36,7 @@ AppLayer = cc.Layer.extend
         threshold : params.threshold
       note = new Note res.noteImage, noteParams, @_timer
       note.attr
-        x : v.key * params.noteMargin + params.noteOffset
+        x : v.key * params.margin + params.offset
         y : size.height + note.height
 
       @addChild note, 10
@@ -48,7 +48,7 @@ AppLayer = cc.Layer.extend
     for i in [0...params.keyNum]
       dest = new cc.Sprite res.destImage
       dest.attr
-        x: i * params.noteMargin + params.noteOffset
+        x: i * params.margin + params.offset
         y: params.destY
       @addChild dest, 5
 
