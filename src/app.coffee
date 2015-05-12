@@ -24,9 +24,11 @@ AppLayer = cc.Layer.extend
     @_music.playMusic params.music.src, false
 
   update : ->
+    size = cc.director.getWinSize()
     timing = params.note[@_notesIndex]?.timing
+    fallTime = (size.height - params.destY) / params.speed
     currentTime = @_timer.get()
-    if timing - 3 < currentTime
+    if timing - fallTime < currentTime
       @_notes[@_notesIndex++].start()
 
   _preallocateNotes : ->
@@ -66,7 +68,7 @@ AppLayer = cc.Layer.extend
     size = cc.director.getWinSize()
     cover = cc.Sprite.create params.music.coverImage
     cover.x = 50
-    cover.y = size.height - 50
+    cover.y = size.height - 80
     @addChild cover, 5
 
   _addTitle : ->
@@ -74,7 +76,7 @@ AppLayer = cc.Layer.extend
     title = new cc.LabelTTF params.music.title, "Arial", 14, cc.size(100,10), cc.TEXT_ALIGNMENT_LEFT
     title.attr
       x : 150
-      y : size.height - 50
+      y : size.height - 80
     title.setColor cc.color(0, 0, 0, 255)
     @addChild title, 5
 
@@ -93,7 +95,7 @@ AppLayer = cc.Layer.extend
     @_scoreLabel = new cc.LabelTTF "0", "Arial", 14, cc.size(100,10), cc.TEXT_ALIGNMENT_LEFT
     @_scoreLabel.attr
       x : 150
-      y : size.height - 70
+      y : size.height - 100
     @_scoreLabel.setColor cc.color(0, 0, 0, 255)
     @addChild @_scoreLabel, 10
 
