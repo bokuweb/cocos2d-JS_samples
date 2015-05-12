@@ -1,6 +1,5 @@
 Params  =
   keyNum : 5
-  playTime : 100
   speed : 200
   destY : 60
   threshold :
@@ -12,6 +11,7 @@ Params  =
     src : "res/Ouroboros.mp3"
     title : "Ouroboros"
     coverImage : "res/cover.jpg"
+    playTime : 10
   note : [
     {timing : 1, key : 0}
     {timing : 2, key : 1}

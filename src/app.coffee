@@ -31,6 +31,9 @@ AppLayer = cc.Layer.extend
     if timing - fallTime < currentTime
       @_notes[@_notesIndex++].start()
 
+    if currentTime >= params.music.playTime
+      cc.log "game over"
+
   _preallocateNotes : ->
     size = cc.director.getWinSize()
     for v in params.note
