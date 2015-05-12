@@ -1,5 +1,6 @@
 res = 
   noteImage : "res/note.png"
+  destImage : "res/dest.png"  
   bgImage   : "res/bg.jpg"
   music     : "res/Ouroboros.mp3"
   

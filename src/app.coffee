@@ -13,6 +13,7 @@ AppLayer = cc.Layer.extend
     @_music = cc.audioEngine
     @_preallocateNotes()
     @_addBg()
+    @_addDest()
     @_addScoreLabel()
     @_addJudgeLabel()
     @schedule @_measureMusicTime, 0.01
@@ -35,12 +36,21 @@ AppLayer = cc.Layer.extend
         threshold : params.threshold
       note = new Note res.noteImage, noteParams, @_timer
       note.attr
-        x : v.key * 100 + 10
+        x : v.key * params.noteMargin + params.noteOffset
         y : size.height + note.height
 
       @addChild note, 10
       note.addListener 'judge', @_onJudge.bind this
       @_notes.push note
+
+  _addDest : ->
+    size = cc.director.getWinSize()
+    for i in [0...params.keyNum]
+      dest = new cc.Sprite res.destImage
+      dest.attr
+        x: i * params.noteMargin + params.noteOffset
+        y: params.destY
+      @addChild dest, 5
 
   _addBg : ->
     size = cc.director.getWinSize()
