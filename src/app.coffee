@@ -11,6 +11,7 @@ AppLayer = cc.Layer.extend
     @_notes = []
     @_score = 0
     @_preallocateNotes()
+    @_addBg()
     @_addScoreLabel()
     @_addJudgeLabel()
     @_timer.start()
@@ -36,11 +37,18 @@ AppLayer = cc.Layer.extend
         x : v.key * 100 + 10
         y : size.height + note.height
 
-      @addChild note
+      @addChild note, 10
       note.addListener 'great', @_greatJudged.bind this
       note.addListener 'good' , @_goodJudged.bind  this
       note.addListener 'bad'  , @_badJudged.bind   this
       @_notes.push note
+
+  _addBg : ->
+    size = cc.director.getWinSize()
+    bg = cc.Sprite.create res.bgImage
+    bg.x = size.width / 2
+    bg.y = size.height / 2
+    @addChild bg, 0
 
   _addJudgeLabel : ->
     size = cc.director.getWinSize()
@@ -49,7 +57,7 @@ AppLayer = cc.Layer.extend
       x : size.width / 2
       y : size.height /2
       opacity : 0
-    @addChild @_judgeLabel
+    @addChild @_judgeLabel, 10
 
   _addScoreLabel : ->
     size = cc.director.getWinSize()
@@ -57,8 +65,8 @@ AppLayer = cc.Layer.extend
     @_scoreLabel.attr
       x : size.width - 200
       y : size.height - 100
-    @addChild @_scoreLabel
-
+    @addChild @_scoreLabel, 10
+    
   _greatJudged : ->
     @_score += 100000 / params.note.length
     @_scoreLabel.setString ~~(@_score.toFixed())
@@ -76,12 +84,8 @@ AppLayer = cc.Layer.extend
     @_showJudgeLabel()
 
   _showJudgeLabel : ->
-    @_judgeLabel.runAction(
-      cc.sequence(
-        cc.fadeIn  0.2
-        cc.fadeOut 1
-      )
-    )
+    seq = cc.sequence cc.fadeIn(0.2), cc.fadeOut(1)
+    @_judgeLabel.runAction seq
 
 AppScene = cc.Scene.extend
   onEnter:->

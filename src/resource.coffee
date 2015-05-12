@@ -1,7 +1,6 @@
 res = 
-  textureImage : "res/particle_texture.png"
-  testImage    : "res/test.png"
-  texturePlist : "res/particle_texture.plist"
+  testImage : "res/test.png"
+  bgImage   : "res/bg.jpg" 
 
 resources = []
 
