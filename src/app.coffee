@@ -79,7 +79,7 @@ AppLayer = cc.Layer.extend
 
   _addTitle : ->
     size = cc.director.getWinSize()
-    title = new cc.LabelTTF params.music.title, "Arial", 14, cc.size(100,10), cc.TEXT_ALIGNMENT_LEFT
+    title = new cc.LabelTTF params.music.title, "Arial", 14, cc.size(100, 0), cc.TEXT_ALIGNMENT_LEFT
     title.attr
       x : 150
       y : size.height - 80
@@ -98,7 +98,7 @@ AppLayer = cc.Layer.extend
 
   _addScoreLabel : ->
     size = cc.director.getWinSize()
-    @_scoreLabel = new cc.LabelTTF "0", "Arial", 14, cc.size(100,10), cc.TEXT_ALIGNMENT_LEFT
+    @_scoreLabel = new cc.LabelTTF "0", "Arial", 14, cc.size(100, 0), cc.TEXT_ALIGNMENT_LEFT
     @_scoreLabel.attr
       x : 150
       y : size.height - 100
