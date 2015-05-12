@@ -1,7 +1,8 @@
-Timer  = require('./timer')
-Note   = require('./note')
-params = require('./params')
-res    = require('./resource').res
+Timer    = require('./timer')
+Note     = require('./note')
+params   = require('./params')
+res      = require('./resource').res
+GameOver = require('./gameOver')
 
 AppLayer = cc.Layer.extend
   ctor : ->
@@ -32,7 +33,9 @@ AppLayer = cc.Layer.extend
       @_notes[@_notesIndex++].start()
 
     if currentTime >= params.music.playTime
-      cc.log "game over"
+      gameOver = new GameOver()
+      @unscheduleUpdate()
+      cc.director.runScene new cc.TransitionFade(1.2, gameOver)
 
   _preallocateNotes : ->
     size = cc.director.getWinSize()
@@ -119,6 +122,7 @@ AppLayer = cc.Layer.extend
     @_judgeLabel.runAction seq
 
   _measureMusicTime : ->
+    cc.log @_music.isMusicPlaying()
     if @_music.isMusicPlaying()
       @_timer.start()
       @unschedule @_measureMusicTime
