@@ -2,12 +2,16 @@ Params  =
   keyNum : 5
   playTime : 100
   speed : 200
-  destY : 50
+  destY : 60
   threshold :
     great : 0.15
     good  : 0.3
   margin : 60
-  offset : 35
+  offset : 38
+  music :
+    src : "res/Ouroboros.mp3"
+    title : "Ouroboros"
+    coverImage : "res/cover.jpg"
   note : [
     {timing : 1, key : 0}
     {timing : 2, key : 1}

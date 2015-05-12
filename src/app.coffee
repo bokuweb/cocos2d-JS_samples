@@ -13,12 +13,15 @@ AppLayer = cc.Layer.extend
     @_music = cc.audioEngine
     @_preallocateNotes()
     @_addBg()
+    @_addCoverImage()
+    @_addTitle()
     @_addDest()
     @_addScoreLabel()
     @_addJudgeLabel()
+
     @schedule @_measureMusicTime, 0.01
     @scheduleUpdate()
-    @_music.playMusic res.music, false
+    @_music.playMusic params.music.src, false
 
   update : ->
     timing = params.note[@_notesIndex]?.timing
@@ -59,6 +62,22 @@ AppLayer = cc.Layer.extend
     bg.y = size.height / 2
     @addChild bg, 0
 
+  _addCoverImage : ->
+    size = cc.director.getWinSize()
+    cover = cc.Sprite.create params.music.coverImage
+    cover.x = 50
+    cover.y = size.height - 50
+    @addChild cover, 5
+
+  _addTitle : ->
+    size = cc.director.getWinSize()
+    title = new cc.LabelTTF params.music.title, "Arial", 14, cc.size(100,10), cc.TEXT_ALIGNMENT_LEFT
+    title.attr
+      x : 150
+      y : size.height - 50
+    title.setColor cc.color(0, 0, 0, 255)
+    @addChild title, 5
+
   _addJudgeLabel : ->
     size = cc.director.getWinSize()
     @_judgeLabel = new cc.LabelTTF "", "Arial", 14
@@ -71,10 +90,10 @@ AppLayer = cc.Layer.extend
 
   _addScoreLabel : ->
     size = cc.director.getWinSize()
-    @_scoreLabel = new cc.LabelTTF "0", "Arial", 14
+    @_scoreLabel = new cc.LabelTTF "0", "Arial", 14, cc.size(100,10), cc.TEXT_ALIGNMENT_LEFT
     @_scoreLabel.attr
-      x : size.width - 200
-      y : size.height - 100
+      x : 150
+      y : size.height - 70
     @_scoreLabel.setColor cc.color(0, 0, 0, 255)
     @addChild @_scoreLabel, 10
 
