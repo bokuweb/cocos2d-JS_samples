@@ -1,6 +1,6 @@
 Params  =
   playTime : 100
-  src   : ""
+  src   : "res/Ouroboros.mp3"
   speed : 200
   destY : 100
   threshold :

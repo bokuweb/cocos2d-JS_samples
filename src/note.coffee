@@ -22,7 +22,7 @@ Note = TouchSprite.extend
       @y = @_params.destY + (@_params.timing - currentTime) * @_params.speed
 
     if currentTime >= @_params.timing + @_params.threshold.good
-      @_trigger 'bad'
+      @_trigger 'judge', 'bad'
       @unscheduleUpdate()
       cb =-> @removeFromParent on
       seq = cc.sequence(
@@ -52,11 +52,11 @@ Note = TouchSprite.extend
     great = @_params.threshold.great
     good = @_params.threshold.good
     if -great < diffTime < great
-      @_trigger 'great'
+      @_trigger 'judge', 'great'
     else if -good < diffTime < good
-      @_trigger 'good'
+      @_trigger 'judge', 'good'
     else
-      @_trigger 'bad'
+      @_trigger 'judge', 'bad'
 
   _trigger: (name, data)->
     for listener in @_listeners when listener.name is name

@@ -10,12 +10,14 @@ AppLayer = cc.Layer.extend
     @_notesIndex = 0
     @_notes = []
     @_score = 0
+    @_music = cc.audioEngine
     @_preallocateNotes()
     @_addBg()
     @_addScoreLabel()
     @_addJudgeLabel()
-    @_timer.start()
+    @schedule @_measureMusicTime, 0.01
     @scheduleUpdate()
+    @_music.playMusic res.music, false
 
   update : ->
     timing = params.note[@_notesIndex]?.timing
@@ -31,16 +33,13 @@ AppLayer = cc.Layer.extend
         destY     : params.destY
         speed     : params.speed
         threshold : params.threshold
-      note = new Note res.testImage, noteParams, @_timer
-
+      note = new Note res.noteImage, noteParams, @_timer
       note.attr
         x : v.key * 100 + 10
         y : size.height + note.height
 
       @addChild note, 10
-      note.addListener 'great', @_greatJudged.bind this
-      note.addListener 'good' , @_goodJudged.bind  this
-      note.addListener 'bad'  , @_badJudged.bind   this
+      note.addListener 'judge', @_onJudge.bind this
       @_notes.push note
 
   _addBg : ->
@@ -55,8 +54,9 @@ AppLayer = cc.Layer.extend
     @_judgeLabel = new cc.LabelTTF "", "Arial", 14
     @_judgeLabel.attr
       x : size.width / 2
-      y : size.height /2
+      y : size.height / 2
       opacity : 0
+    @_judgeLabel.setColor cc.color(0, 0, 0, 255)
     @addChild @_judgeLabel, 10
 
   _addScoreLabel : ->
@@ -65,27 +65,29 @@ AppLayer = cc.Layer.extend
     @_scoreLabel.attr
       x : size.width - 200
       y : size.height - 100
+    @_scoreLabel.setColor cc.color(0, 0, 0, 255)
     @addChild @_scoreLabel, 10
-    
-  _greatJudged : ->
-    @_score += 100000 / params.note.length
-    @_scoreLabel.setString ~~(@_score.toFixed())
-    @_judgeLabel.setString 'great'
-    @_showJudgeLabel()
 
-  _goodJudged : ->
-    @_score += 100000 / params.note.length * 0.7
+  _onJudge : (name, judgement)->
+    if judgement is 'great'
+      @_score += 100000 / params.note.length
+      @_judgeLabel.setString 'great'
+    else if judgement is 'good'
+      @_score += 100000 / params.note.length * 0.7
+      @_judgeLabel.setString 'good'
+    else
+      @_judgeLabel.setString 'bad'
     @_scoreLabel.setString ~~(@_score.toFixed())
-    @_judgeLabel.setString 'good'
-    @_showJudgeLabel()
-
-  _badJudged : ->
-    @_judgeLabel.setString 'bad'
     @_showJudgeLabel()
 
   _showJudgeLabel : ->
     seq = cc.sequence cc.fadeIn(0.2), cc.fadeOut(1)
     @_judgeLabel.runAction seq
+
+  _measureMusicTime : ->
+    if @_music.isMusicPlaying()
+      @_timer.start()
+      @unschedule @_measureMusicTime
 
 AppScene = cc.Scene.extend
   onEnter:->
